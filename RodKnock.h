@@ -10,7 +10,7 @@ class RodKnock:
 	}laby[massNum][massNum];
 public:
 	void Initialize() override;
-	void Expansion() override;
+	void Expansion();
 	void PrintLaby() override;
 };
 

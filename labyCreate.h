@@ -7,7 +7,6 @@ class labyCreate
 {
 public:
 	virtual void Initialize() = 0;
-	virtual void Expansion() = 0;
 	virtual void PrintLaby() = 0;
 };
 

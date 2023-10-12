@@ -13,7 +13,7 @@ class WallStretch :
 	int curStdNum_;
 public:
 	void Initialize() override;
-	void Expansion() override;
+	void Expansion(int _stdX, int _stdY);
 	void Investigation();
 	void PrintLaby() override;
 };

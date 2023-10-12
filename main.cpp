@@ -1,10 +1,11 @@
 #include <iostream>
 #include "RodKnock.h"
+#include "WallStretch.h"
 
 int main()
 {
-	RodKnock rk;
+	WallStretch rk;
 	rk.Initialize();
-	rk.Expansion();
+	rk.Expansion(((rand() % ((massNum / 2) - 1)) + 1) * 2, ((rand() % ((massNum / 2) - 1)) + 1) * 2);
 	rk.PrintLaby();
 }

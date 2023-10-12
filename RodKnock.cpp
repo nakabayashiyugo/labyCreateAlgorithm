@@ -34,17 +34,17 @@ void RodKnock::Expansion()
 {
 	for (int x = 1; x < massNum - 1; x++)
 	{
-		for (int z = 1; z < massNum - 1; z++)
+		for (int y = 1; y < massNum - 1; y++)
 		{
-			if (laby[x][z].isStdWall == true)
+			if (laby[x][y].isStdWall == true)
 			{
 				int dirMv = (rand() % 4) + 1;
 				switch (dirMv)
 				{
-				case 1:laby[x][z + 1].isWall = 1; break;
-				case 2:laby[x + 1][z].isWall = 1; break;
-				case 3:laby[x][z - 1].isWall = 1; break;
-				case 4:laby[x - 1][z].isWall = 1; break;
+				case 1:laby[x][y + 1].isWall = 1; break;
+				case 2:laby[x + 1][y].isWall = 1; break;
+				case 3:laby[x][y - 1].isWall = 1; break;
+				case 4:laby[x - 1][y].isWall = 1; break;
 				}
 			}
 		}
