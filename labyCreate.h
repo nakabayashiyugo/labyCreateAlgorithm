@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
+#include <time.h>
 
-const int massNum = 21;
+
+
+const int massNum = 15;
 
 class labyCreate
 {

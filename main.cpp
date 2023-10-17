@@ -4,8 +4,16 @@
 
 int main()
 {
+	srand(time(NULL));
 	WallStretch rk;
 	rk.Initialize();
-	rk.Expansion(((rand() % ((massNum / 2) - 1)) + 1) * 2, ((rand() % ((massNum / 2) - 1)) + 1) * 2);
+	
+	int randX, randY;
+	do {
+		randX = rand() % massNum;
+		randY = rand() % massNum;
+	} while (randX % 2 != 0 || randY % 2 != 0);
+	rk.Expansion(randX, randY);
 	rk.PrintLaby();
+	
 }
