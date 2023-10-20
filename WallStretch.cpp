@@ -28,7 +28,6 @@ void WallStretch::Initialize()
 
 void WallStretch::Expansion(int _stdX, int _stdY)
 {
-	PrintLaby();
 	std::cout << _stdX << ", " << _stdY << std::endl;
 	std::cout << std::endl;
 	if (laby[_stdX][_stdY].isWall != 1)
@@ -41,6 +40,7 @@ void WallStretch::Expansion(int _stdX, int _stdY)
 		Investigation();
 		return;
 	}
+	PrintLaby();
 
 	bool dircheck[4] = { false, false, false, false };
 	bool wallHit = false;
@@ -230,7 +230,14 @@ void WallStretch::PrintLaby()
 		{
 			if (laby[x][z].isWall)
 			{
-				std::cout << "¡";
+				if (laby[x][z].isExpanding)
+				{
+					std::cout << "£";
+				}
+				else
+				{
+					std::cout << "¡";
+				}
 			}
 			else
 			{
