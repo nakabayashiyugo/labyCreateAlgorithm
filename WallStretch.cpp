@@ -1,5 +1,7 @@
 #include "WallStretch.h"
 
+int dir[4] = { 0, 0, 0, 0 };
+
 void WallStretch::Initialize()
 {
 	stdNum_ = 0;
@@ -41,158 +43,28 @@ void WallStretch::Expansion(int _stdX, int _stdY)
 		return;
 	}
 	PrintLaby();
+	int x = _stdX, y = _stdY;
+	do
+	{
+		int random = (rand() % 4);
+		
+		dir[random] = 1;
 
-	bool dircheck[4] = { false, false, false, false };
-	bool wallHit = false;
-	while (dircheck[0] == false || dircheck[1] == false ||
-		dircheck[2] == false || dircheck[3] == false)
-	{
-		if (wallHit != false)
+		x += dir[0];
+		x -= dir[1];
+		y += dir[2];
+		y -= dir[3];
+
+		if (laby[x][y].isWall == 0)
 		{
+			dir[random] = 0;
 			break;
 		}
-		int dir = (rand() % 4) + 1;
-		switch (dir)
-		{
-		case 1:
-			if (dircheck[dir - 1] == false)
-			{
-				if (laby[_stdX][_stdY + 1].isWall == 0 &&
-					laby[_stdX][_stdY + 2].isExpanding == false &&
-					laby[_stdX + 1][_stdY + 1].isWall == false && //âE
-					laby[_stdX - 1][_stdY + 1].isWall == false && //ç∂
-					laby[_stdX + 1][_stdY + 2].isExpanding == false && //âEâ∫
-					laby[_stdX - 1][_stdY + 2].isExpanding == false)  //ç∂â∫
-				{
-					if (laby[_stdX][_stdY + 2].isWall == 1)
-					{
-						laby[_stdX][_stdY + 1].isWall = 1;
-						Investigation();
-						wallHit = true;
-						return;
-					}
-					else
-					{
-						Expansion(_stdX, _stdY + 1);
-					}
-				}
-				dircheck[0] = true;
-			}
-			break;
-		case 2:
-			if (dircheck[dir - 1] == false)
-			{
-				if (laby[_stdX + 1][_stdY].isWall == 0 &&
-					laby[_stdX + 2][_stdY].isExpanding == false &&
-					laby[_stdX + 1][_stdY + 1].isWall == false &&
-					laby[_stdX + 1][_stdY - 1].isWall == false &&
-					laby[_stdX + 2][_stdY + 1].isExpanding == false &&
-					laby[_stdX + 2][_stdY - 1].isExpanding == false)
-				{
-					if (laby[_stdX + 2][_stdY].isWall == 1)
-					{
-						laby[_stdX + 1][_stdY].isWall = 1;
-						Investigation();
-						wallHit = true;
-						return;
-					}
-					else
-					{
-						Expansion(_stdX + 1, _stdY);
-					}
-				}
-				dircheck[1] = true;
-			}
-			break;
-		case 3:
-			if (dircheck[dir - 1] == false)
-			{
-				if (laby[_stdX][_stdY - 1].isWall == 0 &&
-					laby[_stdX][_stdY - 2].isExpanding == false &&
-					laby[_stdX + 1][_stdY - 1].isWall == false &&
-					laby[_stdX - 1][_stdY - 1].isWall == false &&
-					laby[_stdX + 1][_stdY - 2].isExpanding == false &&
-					laby[_stdX - 1][_stdY - 2].isExpanding == false)
-				{
-					if (laby[_stdX][_stdY - 2].isWall == 1)
-					{
-						laby[_stdX][_stdY - 1].isWall = 1;
-						Investigation();
-						wallHit = true;
-						return;
-					}
-					else
-					{
-						Expansion(_stdX, _stdY - 1);
-					}
-				}
-				dircheck[2] = true;
-			}
-			break;
-		case 4:
-			if (dircheck[dir - 1] == false)
-			{
-				if (laby[_stdX - 1][_stdY].isWall == 0 &&
-					laby[_stdX - 2][_stdY].isExpanding == false &&
-					laby[_stdX - 1][_stdY + 1].isWall == false &&
-					laby[_stdX - 1][_stdY - 1].isWall == false &&
-					laby[_stdX - 2][_stdY + 1].isExpanding == false &&
-					laby[_stdX - 2][_stdY - 1].isExpanding == false)
-				{
-					if (laby[_stdX - 2][_stdY].isWall == 1)
-					{
-						laby[_stdX - 1][_stdY].isWall = 1;
-						Investigation();
-						wallHit = true;
-						return;
-					}
-					else
-					{
-						Expansion(_stdX - 1, _stdY);
-					}
-				}
-				dircheck[3] = true;
-			}
-			break;
-		}
-	}
-	int i = 0;
-	if (wallHit != true)
-	{
-		while (i < 5)
-		{
-			switch (i)
-			{
-			case 0:
-				if (laby[_stdX][_stdY + 1].isExpanding == true)
-				{
-					Expansion(_stdX, _stdY + 1);
-				}
-				break;
-			case 1:
-				if (laby[_stdX + 1][_stdY].isExpanding == true)
-				{
-					Expansion(_stdX + 1, _stdY);
-				}
-				break;
-			case 2:
-				if (laby[_stdX][_stdY - 1].isExpanding == true)
-				{
-					Expansion(_stdX, _stdY - 1);
-				}
-				break;
-			case 3:
-				if (laby[_stdX - 1][_stdY].isExpanding == true)
-				{
-					Expansion(_stdX - 1, _stdY);
-				}
-				break;
-			default:
-				Investigation();
-			}
-			i++;
-		}
-	}
+
+		dir[random] = 0;
+	} while (true);
+	Expansion(x, y);
+
 }
 
 void WallStretch::Investigation()
